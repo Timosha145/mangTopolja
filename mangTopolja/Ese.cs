@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,23 +17,23 @@ namespace mangTopolja
     }
 
     //    2. Klass Ese realiseerib liidese Üksus.
-    class Ese : IUksus
+    public class Ese : IUksus
     {
         //1. Klassis on privaatsed isendiväljad järgmise info jaoks: nimetus(String) ja punktide arv(int).
         private string nimetus;
-        private int punktideArv;
+        private int PunktideArv;
 
         //2. Klassis peab olema kahe parameetriga konstruktor, mille abil saab määrata nimetuse ja punktide
         Ese(string nimetus, int punktideArv)
         {
             this.nimetus = nimetus;
-            this.punktideArv = punktideArv;
+            this.PunktideArv = punktideArv;
         }
 
         //3. Meetod punktideArv tagastab punktide arvu.
-        int IUksus.punktideArv()
+        public int punktideArv()
         {
-            return punktideArv;
+            return PunktideArv;
         }
 
         //4. Meetod info tagastab selle eseme nimetuse.
