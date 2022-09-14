@@ -6,16 +6,6 @@ using System.Threading.Tasks;
 
 namespace mangTopolja
 {
-    //    1.    Liides Üksus sisaldab
-    interface IUksus
-    {
-        //1. int-tüüpi parameetriteta meetodit punktideArv;
-        int punktideArv();
-
-        //2. String-tüüpi parameetriteta meetodit info.
-        string meetodInfo();
-    }
-
     //    2. Klass Ese realiseerib liidese Üksus.
     public class Ese : IUksus
     {
@@ -24,7 +14,7 @@ namespace mangTopolja
         private int PunktideArv;
 
         //2. Klassis peab olema kahe parameetriga konstruktor, mille abil saab määrata nimetuse ja punktide
-        Ese(string nimetus, int punktideArv)
+        public Ese(int punktideArv, string nimetus)
         {
             this.nimetus = nimetus;
             this.PunktideArv = punktideArv;
@@ -39,6 +29,7 @@ namespace mangTopolja
         //4. Meetod info tagastab selle eseme nimetuse.
         public string meetodInfo()
         {
+            Console.WriteLine(nimetus);
             return nimetus;
         }
 
