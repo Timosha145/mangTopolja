@@ -7,60 +7,66 @@ using System.Threading.Tasks;
 namespace mangTopolja 
 {
     //    3. Klass Tegelane realiseerib liidese Üksus.
-    class Tegelene
+    class Tegelene : IUksus, IComparable<Tegelene>
     {
         //1. Klassis on privaatsed isendiväljad järgmise info jaoks: nimi(String) ja esemete nimekiri
         private string nimi;
-        protected double m_value = 0.0;
-        List<Ese> eseList = new List<Ese>();
-        List<Tegelene> tegelased = new List<Tegelene>();
+        List<Ese> eseList;
 
         //2. Klassis peab olema ühe parameetriga konstruktor, mille abil saab määrata nime.
-        Tegelene(string nimi)
+        public Tegelene(string nimi)
         {
             this.nimi = nimi;
+            eseList = new List<Ese>();
         }
 
         //3. Äsjaloodud tegelasel ei ole ühtegi eset. Eseme lisamiseks peab olema meetod lisaEse, mis jätab argumendiks antud eseme meelde.
-        public int lisaEse(int item)
+        public int lisaEse(int arv)
         {
-            return item;
+            return arv;
         }
+
+        public void Equip(Ese ese) { eseList.Add(ese); }
 
         //4. Meetod punktideArv tagastab punktide arvu.
         public int punktideArv()
         {
-            int i = 0;
-            foreach (Ese item in eseList)
+            int summa = 0;
+            foreach (Ese ese in eseList)
             {
-                i += item.punktideArv();
+                summa += ese.punktideArv();
             }
-            return i;
+            return summa;
         }
 
         //5. Meetod info tagastab selle eseme nimetuse.
-        public string meetodInfo(int esemeteArv)
+        public string meetodInfo()
         {
-            string info = $"Tegelase nime - {nimi}, esemete arv - {esemeteArv}, punktide arv - {punktideArv()}";
-            return info;
+            string teg_info = $"Tegelase nime - {nimi}, esemete arv - {eseList.Count}, punktide arv - {punktideArv()}";
+            return teg_info;
         }
 
         //6. Klassis peab olema ka meetod väljastaEsemed, kus väljastatakse ekraanile tegelase esemed nii, et iga ese on eraldi real.
         public void valjastaEsemed()
         {
-            foreach (Ese item in eseList)
+            foreach (Ese ese in eseList)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(ese.meetodInfo());
             }
         }
 
         //7. Klass Tegelane realiseerib liidese Comparable<Tegelane>, kusjuures compareTo meetod realiseeritakse nii, et võrdlemine toimub esemete arvu alusel. (Näidis kood)
 
-        public int compareTo(Tegelene other)
+        public int CompareTo(Tegelene? muu)
         {
-            if (other==null) return 1;
-            return m_value.CompareTo(other.m_value);
+            if (muu==null)
+            {
+                return 1;
+            }
+            return this.eseList.Count - muu.eseKogus();
         }
+        private int eseKogus() { return this.eseList.Count; }
+        
     }
 }
 
